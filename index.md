@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Hello World!
-tagline: Supporting tagline
+title: The Hybrid Front
+tagline: 联合前线
 ---
 {% include JB/setup %}
 
