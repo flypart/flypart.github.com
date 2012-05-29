@@ -21,3 +21,5 @@ class A
     }
 };
 {% endhighlight %}
+
+![](http://flypart.github.com/image/gen-the_hybrid_front-full.gif)
