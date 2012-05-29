@@ -22,4 +22,4 @@ class A
 };
 {% endhighlight %}
 
-![]( {{ BASE_PATH }}/image/gen-the_hybrid_front-full.gif)
+![](/image/gen-the_hybrid_front-full.gif)
