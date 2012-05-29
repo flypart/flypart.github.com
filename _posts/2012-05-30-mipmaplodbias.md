@@ -1,0 +1,16 @@
+---
+layout: post
+title: "MipmapLodBias"
+description: ""
+category: 
+tags: []
+---
+{% include JB/setup %}
+
+D3DSAMP_MIPMAPLODBIAS的用途：锐化贴图
+值是浮点数：
+float fValue = 10.34262f;
+pDev->SetBlah( blah, BLAH_MIPMAPLODBIAS, *((DWORD *)&fValue) );
+与硬件PCF同时存在时会有诡异的bug，需要更新驱动。
+
+D3D的Pure Device，可以提高效率？
