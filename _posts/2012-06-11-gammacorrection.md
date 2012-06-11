@@ -155,21 +155,35 @@ gamma校正所做的事情就是在图像显示出来之前对其像素值进行
 
 通过sRGB进行自动的色彩校正不用付出什么代价，它比每次采样纹理之后再进行手工的gamma校正要更好。因为每个pow指令都会被展开成两条指令，并且手动的校正发生在过滤之后，而这时过滤就只能在非线性空间进行的了。预先把纹理转换到线性空间然后再载入到渲染器也不是个好主意。把线性空间的像素值存入一个8bit深度的图像文件将会丢失低亮度部分的细节，当把这样的数据输入渲染器进行计算并且最后转换回非线性空间时，将会在暗部会产生光带状的走样。
 手动把颜色转换到线性空间的代码：
-Float3 diffuseCol = pow(tex2D(diffTex, texCoord), 2.2);
+
+{% highlight cpp %}
+float3 diffuseCol = pow(tex2D(diffTex, texCoord), 2.2);
+{% endhighlight %}
+
 或者（速度更快，但是假定gamma是2）：
-Float3 diffuseCol = tex2D(diffTex, texCoord);
+
+{% highlight cpp %}
+float3 diffuseCol = tex2D(diffTex, texCoord);
 diffuseCol = diffuseCol * diffuseCol;
+{% endhighlight %}
 
 有的纹理输入是线性的而有的不是，对于引擎程序员而言管理它们可能是一件繁琐的事情。在很多情况下最简单的方案还是在进入渲染之前就将它们转换到线性空间。但这也会带来前述的问题。
 
 **输出图像**
 
 最后一步是在显示图像之前对像素值进行gamma校正，这样他们在非线性显示器上显示的图像才是正确的。指定一个用sRGB标注的帧缓存可以将这个工作完全丢给GPU，也不再需要改变任何shader代码。所有shader返回的值在存入帧缓存之前都会自动进行gamma校正。更进一步，在Geforce8系列或者之后的硬件上，如果开启了alpha混合，那么之前存入的值在参与混合之前还会被转换回线性空间，之后再被转换到非线性空间存入。当开启了sRGB时，alpha值不会gamma校正。如果硬件不支持sRGB缓存，你可以使用耗费稍大的解决方案，通过自己写shader来实现。然而，这样所有的alpha混合就可能不正确了。
+
+{% highlight cpp %}
 float3 finalCol = do_all_lighting_and_shading();   
 float pixelAlpha = compute_pixel_alpha();   
-return float4(pow(finalCol, 1.0 / 2.2), pixelAlpha);   
+return float4(pow(finalCol, 1.0 / 2.2), pixelAlpha);
+{% endhighlight %}
+   
 或者效率更高的算法，假定gamma为2
- return float4( sqrt( finalCol ), pixelAlpha );  
+
+{% highlight cpp %}
+return float4( sqrt( finalCol ), pixelAlpha );
+{% endhighlight %}
 
 **作为中间结果的帧缓存**
 
