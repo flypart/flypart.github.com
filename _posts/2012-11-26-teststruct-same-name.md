@@ -7,7 +7,9 @@ tags: []
 ---
 {% include JB/setup %}
 
-ÔÚ¶à¸öCPPÎÄ¼şÖĞ,¶¨ÒåÁËÍ¬Ãûstruct TestStruct.
-ÄÇÃ´ÔÚÆäÖĞÄ³¸öÎÄ¼şµÄº¯ÊıÖĞÈç¹ûÔÚÕ»ÉÏ´´½¨ÁËTestStruct,Ôò»á±ÀÀ£...
+åœ¨å¤šä¸ªCPPæ–‡ä»¶ä¸­,å®šä¹‰äº†åŒåstruct TestStruct.
+
+é‚£ä¹ˆåœ¨å…¶ä¸­æŸä¸ªæ–‡ä»¶çš„å‡½æ•°ä¸­å¦‚æœåœ¨æ ˆä¸Šåˆ›å»ºäº†TestStruct,åˆ™ä¼šå´©æºƒ...
+
 Run-Time Check Failure #2 - Stack around the variable 'a' was corrupted.
 
